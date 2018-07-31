@@ -1,7 +1,7 @@
 //Store
 (function(window){
 	'use strict'
-    
+
     class Store {
         constructor(){
         this.pinBoard = [ {id: "default", title: "Your First memo", content: "Write Something!"} ];
@@ -22,12 +22,12 @@
     window.app = window.app || {};
 	window.app.Store = Store;
 })(window);
-    
+
 //model
 /* test code
 
 var memoA = {id:"default", title:"new title", content:"new new"};
-var memoB = {id:"abc", title:"abc title", content:"abc"};
+var memoB = {title:"abc title", content:"abc"};
 model.addMemo(memoB);
 console.log(model.pinBoard)
 console.log(model.findMemo(memoB));
@@ -45,14 +45,22 @@ console.log(model.pinBoard);
             this.store = store;
             this.pinBoard = Array.from(this.store.loadPinBoard(), x=>x);
             //clone store.pinBoard to model.pinBoard
-            //Also Possible: this.pinBoard = this.store.loadPinBoard().slice(0); 
-            //Object Clone: var x = {myProp: "value"}; var y = Object.assign({}, x); 
+            //Also Possible: this.pinBoard = this.store.loadPinBoard().slice(0);
+            //Object Clone: var x = {myProp: "value"}; var y = Object.assign({}, x);
             this.autoSave = false;
         }
     }
 
+	Model.prototype.generateId = function(memo){
+		memo.id = "memo-" + Date.now();
+	}
+
 	Model.prototype.addMemo = function (memo){
+		if(this.findMemo(memo)===false){
+		this.generateId(memo);
 		this.pinBoard.push(memo);
+		}
+		else return false;
         if(this.autoSave) this.store.savePinBoard(this.pinBoard);
 	}
 
@@ -76,7 +84,8 @@ console.log(model.pinBoard);
         if(this.autoSave) this.autoSave = false;
         else this.autoSave = true;
     }
-    
+
+
 
 	//export to window
 	window.app = window.app || {};
@@ -93,8 +102,17 @@ console.log(model.pinBoard);
     class View {
         constructor(pinBoard) {
             this.pinBoard = pinBoard;
+			this.setView(this.pinBoard);
         }
     }
+	View.prototype.setView = function (pinBoard){
+		for ( var i in pinBoard ){
+			var memoNode = document.getElementById(pinBoard[i].id);
+			memoNode.getElementsByClassName("title")[0].innerHTML = pinBoard[i].title;
+			memoNode.getElementsByClassName("content")[0].innerHTML = pinBoard[i].content;
+		}
+	}
+
 	View.prototype.addMemo = function (memo){
 	}
 	View.prototype.findMemo = function (memo){
@@ -151,8 +169,7 @@ console.log(model.pinBoard);
 	'use strict'
     window.store = new app.Store;
 	window.model = new app.Model(store);
-	//window.view = new app.View(store.loadPinBoard());
+	window.view = new app.View(model.pinBoard);
 	//window.controller = new app.Controller(model, view);
 
 })(window);
-
