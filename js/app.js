@@ -1,86 +1,158 @@
+//Store
+(function(window){
+	'use strict'
+    
+    class Store {
+        constructor(){
+        this.pinBoard = [ {id: "default", title: "Your First memo", content: "Write Something!"} ];
+        }
+	}
+    Store.prototype.savePinBoard = function (pinBoard){
+		this.pinBoard = pinBoard;
+	}
+    Store.prototype.loadPinBoard = function (){
+        return this.pinBoard;
+	}
+    /*FILE I/O
+    Store.prototype.readpinBoard = function (pinBoard){
+	}
+    Store.prototype.writepinBoard = function (pinBoard){
+	}
+    */
+    window.app = window.app || {};
+	window.app.Store = Store;
+})(window);
+    
 //model
+/* test code
+
+var memoA = {id:"default", title:"new title", content:"new new"};
+var memoB = {id:"abc", title:"abc title", content:"abc"};
+model.addMemo(memoB);
+console.log(model.pinBoard)
+console.log(model.findMemo(memoB));
+model.updateMemo(memoA);
+console.log(model.pinBoard)
+model.deleteMemo(memoB);
+console.log(model.pinBoard);
+*/
 (function(window){
 	'use strict'
 
-	function Model(notes) {
-		this.notes = notes;
-	};
 
-	Model.prototype.addNote = function (note){
-		this.notes.push(note);
+    class Model {
+        constructor(store) {
+            this.store = store;
+            this.pinBoard = Array.from(this.store.loadPinBoard(), x=>x);
+            //clone store.pinBoard to model.pinBoard
+            //Also Possible: this.pinBoard = this.store.loadPinBoard().slice(0); 
+            //Object Clone: var x = {myProp: "value"}; var y = Object.assign({}, x); 
+            this.autoSave = false;
+        }
+    }
+
+	Model.prototype.addMemo = function (memo){
+		this.pinBoard.push(memo);
+        if(this.autoSave) this.store.savePinBoard(this.pinBoard);
 	}
 
-	Model.prototype.findNote = function (note){
-		for ( var i in this.notes) {
-			if ( this.notes[i].id === note.id ) return this.notes[i];
+	Model.prototype.findMemo = function (memo){
+		for ( var i in this.pinBoard) {
+			if ( this.pinBoard[i].id === memo.id ) return this.pinBoard[i];
 		}
 		return false;
 	}
-	Model.prototype.updateNote = function (note){
-		if ( this.findNote(note) === false ) return false;
-		this.findNote(note).title = note.title;
-		this.findNote(note).content = note.content;
+	Model.prototype.updateMemo = function (memo){
+		if ( this.findMemo(memo) === false ) return false;
+		this.findMemo(memo).title = memo.title;
+		this.findMemo(memo).content = memo.content;
+        if(this.autoSave) this.store.savePinBoard(this.pinBoard);
 	}
-	Model.prototype.deleteNote = function (note){
-		this.notes.splice(this.notes.indexOf(this.findNote(note)),1);
+	Model.prototype.deleteMemo = function (memo){
+		this.pinBoard.splice(this.pinBoard.indexOf(this.findMemo(memo)),1);
+        if(this.autoSave) this.store.savePinBoard(this.pinBoard);
 	}
+    Model.prototype.toggleAutoSave = function(){
+        if(this.autoSave) this.autoSave = false;
+        else this.autoSave = true;
+    }
+    
 
-/* test code
-var notes = new Array();
-notes = [ {id: "default", title: "Your First Note", content: "Write Something!"} ];
-var myModel = new app.Model(notes);
-var noteA = {id:"default", title:"new title", content:"new new"};
-var noteB = {id:"abc", title:"abc title", content:"abc"};
-myModel.addNote(noteB);
-console.log(myModel.notes)
-console.log(myModel.findNote(noteB));
-myModel.updateNote(noteA);
-console.log(myModel.notes)
-myModel.deleteNote(noteB);
-console.log(myModel.notes)
-*/
 	//export to window
 	window.app = window.app || {};
 	window.app.Model = Model;
 })(window);
 
+
+
+
+//view
+(function(window){
+	'use strict'
+
+    class View {
+        constructor(pinBoard) {
+            this.pinBoard = pinBoard;
+        }
+    }
+	View.prototype.addMemo = function (memo){
+	}
+	View.prototype.findMemo = function (memo){
+	}
+	View.prototype.updateMemo = function (memo){
+	}
+	View.prototype.deleteMemo = function (memo){
+	}
+	View.prototype.loadpinBoard = function (memo){
+	}
+	View.prototype.savepinBoard = function (memo){
+	}
+
+
+
+	//export to window
+	window.app = window.app || {};
+	window.app.View = View;
+})(window);
+
+
+
+
+
 /*
 //controller
 (function(window){
 	'use strict'
-	Controller = function(notes) {
-			this.notes = notes;
+	Controller = function(pinBoard) {
+			this.pinBoard = pinBoard;
 	};
-	Controller.prototype.addNote = function (note){
-		this.notes.set(note.id, note.obj);
+	Controller.prototype.addMemo = function (memo){
+		this.pinBoard.set(memo.id, memo.obj);
 	}
-	Controller.prototype.updateNote = function (id,note){
+	Controller.prototype.updateMemo = function (id,memo){
 	}
-	Controller.prototype.deleteNote = function (id){
+	Controller.prototype.deleteMemo = function (id){
 	}
-	Controller.prototype.readNote = function (id){
+	Controller.prototype.readMemo = function (id){
 	}
-	Controller.prototype.writeNote = function (id){
+	Controller.prototype.writeMemo = function (id){
 	}
 	//export to window
 	window.app = window.app || {};
 	window.app.Controller = Controller;
 })(window);
+*/
 
-//view
-(function(window){
-	'use strict'
-		//export to window
-		window.app = window.app || {};
-		window.app.View = View;
-})(window);
+
+
 
 //app
 (function(window){
 	'use strict'
-	window.model = new app.Model();
-	window.view = new app.View();
-	window.controller = new app.Controller(model, view);
+    window.store = new app.Store;
+	window.model = new app.Model(store);
+	//window.view = new app.View(store.loadPinBoard());
+	//window.controller = new app.Controller(model, view);
 
 })(window);
-*/
+
