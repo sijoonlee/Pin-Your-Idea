@@ -96,28 +96,42 @@ console.log(model.pinBoard);
 
 
 //view
+/* CONTENTEDITABLE CHANGE EVENT
+<div contenteditable="true" id="editor">Please type something in here</div>
+document.getElementById("editor").addEventListener("input", function() {
+    console.log("input event fired");
+}, false);
+*/
 (function(window){
 	'use strict'
 
     class View {
         constructor(pinBoard) {
             this.pinBoard = pinBoard;
-			this.setView(this.pinBoard);
         }
     }
 	View.prototype.setView = function (pinBoard){
-		for ( var i in pinBoard ){
+        var nodeArray = [];
+        for ( var i in pinBoard ){
 			var memoNode = document.getElementById(pinBoard[i].id);
-			memoNode.getElementsByClassName("title")[0].innerHTML = pinBoard[i].title;
-			memoNode.getElementsByClassName("content")[0].innerHTML = pinBoard[i].content;
-		}
-	}
+            var titleNode = memoNode.getElementsByClassName("title")[0]
+            var contentNode = memoNode.getElementsByClassName("content")[0]
+			titleNode.innerHTML = pinBoard[i].title;
+            titleNode.contentEditable = true;
+            contentNode.innerHTML = pinBoard[i].content;
+            contentNode.contentEditable = true;
+            nodeArray.push({id:pinBoard[i].id, title:titleNode, content:contentNode});
+        }
+        return nodeArray;
+    }
 
 	View.prototype.addMemo = function (memo){
+        
 	}
 	View.prototype.findMemo = function (memo){
 	}
 	View.prototype.updateMemo = function (memo){
+
 	}
 	View.prototype.deleteMemo = function (memo){
 	}
@@ -137,16 +151,18 @@ console.log(model.pinBoard);
 
 
 
-/*
 //controller
 (function(window){
 	'use strict'
-	Controller = function(pinBoard) {
-			this.pinBoard = pinBoard;
-	};
+    class Controller {
+        constructor(model, view) {
+            this.model = model;
+            this.view = view;
+            this.setView(model.pinBoard);
+        }
+    }
 	Controller.prototype.addMemo = function (memo){
-		this.pinBoard.set(memo.id, memo.obj);
-	}
+    }
 	Controller.prototype.updateMemo = function (id,memo){
 	}
 	Controller.prototype.deleteMemo = function (id){
@@ -155,11 +171,33 @@ console.log(model.pinBoard);
 	}
 	Controller.prototype.writeMemo = function (id){
 	}
+    Controller.prototype.setView = function (pinBoard){
+        this.bindEvent(this.view.setView(pinBoard));
+    }
+    Controller.prototype.bindEvent = function (nodeArray){
+        
+        for (let i in nodeArray){
+            var id = nodeArray[i].id;
+            var titleNode = nodeArray[i].title;
+            var contentNode = nodeArray[i].content;
+            nodeArray[i].title.addEventListener("input", this.titleInputDetected.bind(this, id, titleNode));
+            //nodeArray[i].content.addEventListener("input", this.inputDetected(nodeArray[i].id,nodeArray[i].content));
+        }
+    };
+    Controller.prototype.titleInputDetected = function (id, titleNode){
+        console.log(id);
+        console.log(titleNode);
+    }
+    Controller.prototype.contentInputDetected = function (id, contentNode){
+        console.log(id);
+        console.log(this);
+    }
+    
 	//export to window
 	window.app = window.app || {};
 	window.app.Controller = Controller;
 })(window);
-*/
+
 
 
 
@@ -170,6 +208,6 @@ console.log(model.pinBoard);
     window.store = new app.Store;
 	window.model = new app.Model(store);
 	window.view = new app.View(model.pinBoard);
-	//window.controller = new app.Controller(model, view);
+	window.controller = new app.Controller(model, view);
 
 })(window);
