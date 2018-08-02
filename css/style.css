@@ -8,9 +8,50 @@ span { margin-left: 10px; color: #444; }
 #save { margin-left: 7px; }
 html body .note div.close { color: #3d3402; opacity: 1; text-shadow: 1px 0px 1px #a08805; padding: 2px; }
 */
-.pinBoard {height: 300px; width: 200px, display: inline-block; border: 3px solid red; }
-.memo {height: 15em; width: 200px; display: inline-block;border: 3px solid red;}
-.title {height: 2em; width: 200px}
-.content {height: 10em; width: 200px}
+.pinBoard {max-height: 30em; max-width: 30em; display: block; border: 3px solid blue; }
+.memo {max-height: 15em; max-width: 15em; display: block;border: 3px solid red;}
+.title {height: 2em; width: 200px; overflow-y:scroll;}
+.title::-webkit-scrollbar-track
+{
+	display:none;
+}
+
+.title::-webkit-scrollbar
+{
+	width: 5px;
+	color:  rgba(245, 245, 245, 0.05);
+	background-color: rgba(245, 245, 245, 0.05);
+}
+
+.title::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #474747;
+}
+.content {
+	height: 10em; width: 200px; overflow-y:scroll;
+}
+/*
+ *  STYLE 2 https://codepen.io/GhostRider/pen/GHaFw
+ */
+.content::-webkit-scrollbar-track
+{
+	display:none;
+}
+
+.content::-webkit-scrollbar
+{
+	width: 5px;
+	color:  rgba(245, 245, 245, 0.05);
+	background-color: rgba(245, 245, 245, 0.05);
+}
+
+.content::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #474747;
+}
 .close {}
 .email {}
