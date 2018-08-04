@@ -6,7 +6,7 @@
 	        this.model = model;
 	        this.view = view;
 	        this.store = store;
-			var newNode = this.view.createMemoElement(null, {id:"memo-default",title:"New Post",content:"Writing Something!"});
+			var newNode = this.view.createMemoElement(null, this.store.pinBoard[0]);
 			this.bindBasic();
 			this.bindEvent(newNode);
 	    }
@@ -21,8 +21,6 @@
 		}
 		loadPinBoard(){
 			var newNodes = this.view.loadPinBoard(this.store.pinBoard);
-			console.log(this.store.pinBoard);
-			console.log(newNodes);
 			for (var i in newNodes){
 				this.bindEvent(newNodes[i]);
 			}
@@ -53,7 +51,7 @@
 		}
 		addMemo(givenId){
 	        var newId = this.generateId();
-	        var memo = {id:newId,title:"New Post",content:"Writing Something!"};
+	        var memo = {id:newId,title:"New Post",content:"Write Something!"};
 	        this.model.addMemo(memo); //add memo into array at the next index of prevousId
 	        var newNode = this.view.createMemoElement(givenId, memo); //add memo into node at the next to prevousId
 	        this.bindEvent(newNode);
