@@ -1,47 +1,53 @@
-//Make the DIV element draggagle:
-var elmnt = document.getElementsByClassName("memo")[0];
-var elm2 = document.getElementsByClassName("title")[0];
-dragElement(elmnt);
+(function(window){
+	'use strict'
+
+    class Drag {
+    
+        constructor(){        
+        }
+
+        dragElement(elmnt, memo){
+            this.elmnt = elmnt;
+            this.memo = memo;
+            elmnt.getElementsByClassName("pin")[0].onmousedown = this.dragMouseDown.bind(this);
+        }
+    
+        dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+        // get the mouse cursor position at startup:
+            this.pos3 = e.clientX;
+            this.pos4 = e.clientY;
+            document.onmouseup = this.closeDragElement.bind(this);
+        // call a function whenever the cursor moves:
+            document.onmousemove = this.elementDrag.bind(this);
+        }
+
+        elementDrag(e) {
+            console.log(this.memo);
+            e = e || window.event;
+            e.preventDefault();
+        // calculate the new cursor position:
+            this.pos1 = this.pos3 - e.clientX;
+            this.pos2 = this.pos4 - e.clientY;
+            this.pos3 = e.clientX;
+            this.pos4 = e.clientY;
+        // set the element's new position:
+            this.memo.posY = this.elmnt.offsetTop - this.pos2;
+            this.memo.posX = this.elmnt.offsetLeft - this.pos1;
+            this.elmnt.style.top = this.memo.posY + "px";
+            this.elmnt.style.left = this.memo.posX + "px";
+        }
+        
+        closeDragElement(e, memo) {
+        /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }//class ends here
+
+	window.app = window.app || {};
+	window.app.Drag = Drag;
+})(window);
 
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (elmnt.getElementsByClassName("title")[0]) {
-    /* if present, the header is where you move the DIV from:*/
-    elmnt.getElementsByClassName("title")[0].onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    //elmnt.onmousedown = dragMouseDown;
-
-  }
-}
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }

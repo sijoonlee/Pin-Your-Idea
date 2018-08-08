@@ -1,4 +1,8 @@
-
+//TEST Function for detecting difference between store.pinBoard and model.pinBoard
+/* testcode
+window.DetectChange = app.DetectChange(store.pinBoard, model.pinBoard);
+detectChange.getDifferentItems();
+*/
 (function(window){
 	'use strict'
  	function DetectChange(storeArray, modelArray){
@@ -27,10 +31,7 @@
 	window.app = window.app || {};
 	window.app.DetectChange = DetectChange;
 })(window);
-/* testcode
-window.DetectChange = app.DetectChange(store.pinBoard, model.pinBoard);
-detectChange.getDifferentItems();
-*/
+
 
 //APP
 (function(window){
@@ -39,5 +40,7 @@ detectChange.getDifferentItems();
     window.store = new app.Store;
 	window.model = new app.Model(store.pinBoard);
 	window.view = new app.View();
-	window.controller = new app.Controller(model, view, store);
+    window.drag = new app.Drag;
+	window.controller = new app.Controller(model, view, store, drag);
+    
 })(window);

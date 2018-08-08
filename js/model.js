@@ -11,7 +11,7 @@
 		    this.pinBoard = []; // new Array container
 		    for (var i in pinBoard){
 		        this.pinBoard[i] = Object.assign({}, pinBoard[i]);
-		    } // Clone Object
+		    } // Clone Object from store.pinBoard
 		}
 		addMemo (memo){
 			this.pinBoard.push(memo);

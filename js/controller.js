@@ -2,10 +2,11 @@
 (function(window){
 	'use strict'
 	class Controller {
-	    constructor(model, view, store) {
+	    constructor(model, view, store, drag) {
 	        this.model = model;
 	        this.view = view;
 	        this.store = store;
+            this.drag = drag;
 			var newNode = this.view.createMemoElement(null, this.store.pinBoard[0]);
 			this.bindBasic();
 			this.bindEvent(newNode);
@@ -19,7 +20,7 @@
             saveNode.addEventListener("click", ()=>{this.store.savePinBoard(this.model.pinBoard)});
             loadNode.addEventListener("click", ()=>{
                 var newNodes = this.view.loadPinBoard(this.store.pinBoard);
-                for (var i in newNodes)this.bindEvent(newNodes[i]);
+                for (let i in newNodes)this.bindEvent(newNodes[i]);
             });
 		}
 		
@@ -35,13 +36,15 @@
 		}*/ 
         
 
-		bindEvent (newNode){
+		bindEvent (newNode){ //newNode = memo div
+                    
 			var id = newNode.id;
 		    var titleNode = newNode.getElementsByClassName("title")[0];
 		    var contentNode = newNode.getElementsByClassName("content")[0];
 		    var hideButtonNode = newNode.getElementsByClassName("hide")[0];
 		    var addButtonNode = newNode.getElementsByClassName("add")[0];
 			var deleteButtonNode = newNode.getElementsByClassName("delete")[0];
+            var pinBoxNode = newNode.getElementsByClassName("pin")[0];
             
             //titleNode.addEventListener("input", this.updateMemo.bind(this, "title", id, titleNode));
 		    //contentNode.addEventListener("input", this.updateMemo.bind(this, "content", id, contentNode));
@@ -70,8 +73,15 @@
 		    hideButtonNode.addEventListener("click", ()=>{
                 this.view.toggleHide(newNode)
             });
+
+            pinBoxNode.addEventListener("mouseover", ()=>{
+                this.drag.dragElement(newNode, this.model.findMemo(newNode.id));    
+            });
+            
 		}
 
+            
+        
 		generateId (){
 			let id = "memo-" + Date.now() + Math.floor(Math.random() * 1000);
 			for (var i in this.model.pinBoard){

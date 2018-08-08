@@ -24,9 +24,11 @@
 			newNode.setAttribute("class", "memo");
 			newNode.setAttribute("id", newMemo.id);
 			newNode.innerHTML =
-				`<div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"></div><input class=\"delete\" type=\"button\" value=\"delete\">`; //ES6 string
+				`<div class = \"pin\"></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"></div><input class=\"delete\" type=\"button\" value=\"delete\">`; //ES6 string
 			//when there is no existing memo, it will be placed in "pinBoard"
 			//otherwise, it will be added after existing memo.
+            newNode.style.top = newMemo.posY +"px";
+            newNode.style.left = newMemo.posX + "px";
 			if (givenId == null) {
 				var givenNode = document.getElementsByClassName("pinBoard")[0];
 				givenNode.appendChild(newNode);
@@ -46,7 +48,7 @@
 			//create new board from store.pinBoard
 			var newNodes = [];
 			for (var i in pinBoard){
-				newNodes.push(this.createMemoElement(null,pinBoard[i]));
+				newNodes.push(this.createMemoElement(null,pinBoard[i])); //create memo div
 			}
 			return newNodes; //return array of new nodes
 		}
