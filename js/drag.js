@@ -2,16 +2,16 @@
 	'use strict'
 
     class Drag {
-    
-        constructor(){        
+
+        constructor(){
         }
 
         dragElement(elmnt, memo){
             this.elmnt = elmnt;
-            this.memo = memo;
+            this.memo = memo || {posX:0, posY:0};
             elmnt.getElementsByClassName("pin")[0].onmousedown = this.dragMouseDown.bind(this);
         }
-    
+
         dragMouseDown(e) {
             e = e || window.event;
             e.preventDefault();
@@ -24,7 +24,7 @@
         }
 
         elementDrag(e) {
-            console.log(this.memo);
+            
             e = e || window.event;
             e.preventDefault();
         // calculate the new cursor position:
@@ -38,7 +38,7 @@
             this.elmnt.style.top = this.memo.posY + "px";
             this.elmnt.style.left = this.memo.posX + "px";
         }
-        
+
         closeDragElement(e, memo) {
         /* stop moving when mouse button is released:*/
             document.onmouseup = null;
@@ -49,5 +49,3 @@
 	window.app = window.app || {};
 	window.app.Drag = Drag;
 })(window);
-
-

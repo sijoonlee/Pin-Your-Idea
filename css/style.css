@@ -10,7 +10,7 @@ html body .note div.close { color: #3d3402; opacity: 1; text-shadow: 1px 0px 1px
 */
 /*.pinBoard {max-height: 30em; max-width: 30em; display: block; border: 3px solid blue; }*/
 /*.memo {max-height: 15em; max-width: 15em; display: block;border: 3px solid red;}*/
-.title {height: 2em; width: 200px; overflow-y:scroll;}
+.title {overflow-y:scroll;}
 .title::-webkit-scrollbar-track
 {
 	display:none;
@@ -53,4 +53,3 @@ html body .note div.close { color: #3d3402; opacity: 1; text-shadow: 1px 0px 1px
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #474747;
 }
-

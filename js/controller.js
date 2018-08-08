@@ -17,13 +17,18 @@
 			//saveNode.addEventListener("click", this.savePinBoard.bind(this));
             //loadNode.addEventListener("click", this.loadPinBoard.bind(this));
             //replaced by Arrow function
-            saveNode.addEventListener("click", ()=>{this.store.savePinBoard(this.model.pinBoard)});
+
+			//SAVE state into store.pinBoard
+			saveNode.addEventListener("click", ()=>{this.store.savePinBoard(this.model.pinBoard)});
+
+			//Load state that once saved into store.pinBoard
             loadNode.addEventListener("click", ()=>{
+				this.model.resetBoard(this.store.pinBoard);
                 var newNodes = this.view.loadPinBoard(this.store.pinBoard);
                 for (let i in newNodes)this.bindEvent(newNodes[i]);
             });
 		}
-		
+
         //replaced by Arrow function above "bindBasic()"
         /*savePinBoard(){
 			this.store.savePinBoard(this.model.pinBoard);
@@ -33,11 +38,10 @@
 			for (var i in newNodes){
 				this.bindEvent(newNodes[i]);
 			}
-		}*/ 
-        
+		}*/
 
 		bindEvent (newNode){ //newNode = memo div
-                    
+
 			var id = newNode.id;
 		    var titleNode = newNode.getElementsByClassName("title")[0];
 		    var contentNode = newNode.getElementsByClassName("content")[0];
@@ -45,14 +49,14 @@
 		    var addButtonNode = newNode.getElementsByClassName("add")[0];
 			var deleteButtonNode = newNode.getElementsByClassName("delete")[0];
             var pinBoxNode = newNode.getElementsByClassName("pin")[0];
-            
+
             //titleNode.addEventListener("input", this.updateMemo.bind(this, "title", id, titleNode));
 		    //contentNode.addEventListener("input", this.updateMemo.bind(this, "content", id, contentNode));
             //deleteButtonNode.addEventListener("click", this.deleteMemo.bind(this, newNode));
 		    //addButtonNode.addEventListener("click", this.addMemo.bind(this, id));
 		    //hideButtonNode.addEventListener("click", this.view.toggleHide.bind(this, newNode));
             //replaced by Arrow Function below
-            
+
             titleNode.addEventListener("input", ()=>{
                 this.model.updateMemo("title", id, titleNode.innerHTML);
             });
@@ -73,15 +77,12 @@
 		    hideButtonNode.addEventListener("click", ()=>{
                 this.view.toggleHide(newNode)
             });
-
             pinBoxNode.addEventListener("mouseover", ()=>{
-                this.drag.dragElement(newNode, this.model.findMemo(newNode.id));    
-            });
-            
+				this.drag.dragElement(newNode, this.model.findMemo(newNode.id));
+			}); //make it draggable
+
 		}
 
-            
-        
 		generateId (){
 			let id = "memo-" + Date.now() + Math.floor(Math.random() * 1000);
 			for (var i in this.model.pinBoard){

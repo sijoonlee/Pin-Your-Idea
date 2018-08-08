@@ -8,10 +8,13 @@
 	//var x = {myProp: "value"}; var y = Object.assigx);
 	class Model {
 		constructor(pinBoard) {
-		    this.pinBoard = []; // new Array container
-		    for (var i in pinBoard){
-		        this.pinBoard[i] = Object.assign({}, pinBoard[i]);
-		    } // Clone Object from store.pinBoard
+			this.resetBoard(pinBoard);
+		}
+		resetBoard(pinBoard){
+			this.pinBoard = []; // new Array container
+			for (var i in pinBoard){
+			this.pinBoard[i] = Object.assign({}, pinBoard[i]);
+			} // Clone Object from store.pinBoard
 		}
 		addMemo (memo){
 			this.pinBoard.push(memo);
