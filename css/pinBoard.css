@@ -4,15 +4,6 @@
 
 }
 
-.memo {
-    min-width: 150px;
-    position: absolute;
-    z-index: 9;
-    background-color: rgb(255, 255, 107);
-    border: 1px solid #d3d3d3;
-    text-align: center;
-}
-
 .pin {
     padding: 0px;
     cursor: move;
@@ -26,7 +17,29 @@
     position:absolute; right: 0; top: 0;
 }
 
+.resizer {
+    width: 10px;
+    height: 10px;
+    background: red;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+}
+
+
+.memo {
+    min-width: 150px;
+    position: absolute;
+    z-index: 9;
+    background-color: rgb(255, 255, 107);
+    border: 1px solid #d3d3d3;
+    text-align: center;
+}
+
+
 .title {
+    overflow-y:hidden;
     height: 2em;
     line-height: 2em;
     width: 100%;
@@ -39,6 +52,7 @@
 }
 
 .content {
+    overflow-y:hidden;
     z-index: 10;
     width: 100%;
     min-height: 100px;

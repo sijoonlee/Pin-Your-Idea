@@ -21,14 +21,21 @@
 		createMemoElement(givenId, newMemo){
 			//create new memo node after given Id
 			var newNode = document.createElement("div");
+            var hideOrShow;
 			newNode.setAttribute("class", "memo");
 			newNode.setAttribute("id", newMemo.id);
+            if (newMemo.hide == 1){
+                hideOrShow = "style=\"display:none\"";
+            } else {
+                hideOrShow = newMemo.height + "px";
+            }
 			newNode.innerHTML =
-				`<div class=\"bottom\"><div class = \"pin\"></div><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"><input class=\"delete\" type=\"button\" value=\"delete\"></div></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><div class = \"bottom\"></div><div class = \"resizer\"></div>`; //ES6 string
+				`<div class=\"bottom\"><div class = \"pin\"></div><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"><input class=\"delete\" type=\"button\" value=\"delete\"></div></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\" ${hideOrShow}>${newMemo.content}</div><div class = \"bottom\"></div><div class = \"resizer\"></div>`; //ES6 string
 			//when there is no existing memo, it will be placed in "pinBoard"
 			//otherwise, it will be added after existing memo.
             newNode.style.top = newMemo.posY +"px";
             newNode.style.left = newMemo.posX + "px";
+            newNode.style.width = newMemo.width +"px";    
 			if (givenId == null) {
 				var givenNode = document.getElementsByClassName("pinBoard")[0];
 				givenNode.appendChild(newNode);
@@ -52,15 +59,17 @@
 			}
 			return newNodes; //return array of new nodes
 		}
-		toggleHide(memoNode){
+		toggleHide(memoNode, memo){
 	    	var title = memoNode.getElementsByClassName("title")[0];
 	    	var content = memoNode.getElementsByClassName("content")[0];
 	    	if(content.style.display == 'none'){
 	        	content.style.display = 'block';
-                memoNode.style.height = '250px';
+                memoNode.style.height = memo.height;
+                memo.hide = 0;
 	    	} else {
 	        	content.style.display = 'none';
                 memoNode.style.height = '4em';
+                memo.hide = 1;
 	    	}
 		}
 	}//class ends here

@@ -77,7 +77,7 @@
                 this.bindEvent(newNode);
             });
 		    hideButtonNode.addEventListener("click", ()=>{
-                this.view.toggleHide(newNode)
+                this.view.toggleHide(newNode, this.model.findMemo(newNode.id));
             });
             pinBoxNode.addEventListener("mouseover", ()=>{
 				this.drag.dragInit(newNode, pinBoxNode, this.model.findMemo(newNode.id));

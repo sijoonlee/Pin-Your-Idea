@@ -2,7 +2,7 @@
 	'use strict' // IIFE + "use strict" prevent scope problems
 	class Store {
 	    constructor(pinBoard){
-			var defaultPinBoard = [ {id: "memo-default", title: "New Post", content: "Write Something!", posX: 100, posY: 100, width: 100, height: 200} ];
+			var defaultPinBoard = [ {id: "memo-default", title: "New Post", content: "Write Something!", posX: 100, posY: 100, width: 100, height: 200, hide: 0} ];
 	        this.pinBoard = pinBoard || defaultPinBoard;
 	    }
 		savePinBoard (pinBoard){
