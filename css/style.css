@@ -30,7 +30,7 @@ html body .note div.close { color: #3d3402; opacity: 1; text-shadow: 1px 0px 1px
 	background-color: #474747;
 }
 .content {
-	height: 10em; width: 200px; overflow-y:hidden;
+	overflow-y:hidden;
 }
 /*
  *  STYLE 2 https://codepen.io/GhostRider/pen/GHaFw

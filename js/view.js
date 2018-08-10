@@ -24,7 +24,7 @@
 			newNode.setAttribute("class", "memo");
 			newNode.setAttribute("id", newMemo.id);
 			newNode.innerHTML =
-				`<div class = \"pin\"></div><div class = \"resizer\"></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><div class=\"bottom\"><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"><input class=\"delete\" type=\"button\" value=\"delete\"></div>`; //ES6 string
+				`<div class=\"bottom\"><div class = \"pin\"></div><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"><input class=\"delete\" type=\"button\" value=\"delete\"></div></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><div class = \"bottom\"></div><div class = \"resizer\"></div>`; //ES6 string
 			//when there is no existing memo, it will be placed in "pinBoard"
 			//otherwise, it will be added after existing memo.
             newNode.style.top = newMemo.posY +"px";
@@ -57,8 +57,10 @@
 	    	var content = memoNode.getElementsByClassName("content")[0];
 	    	if(content.style.display == 'none'){
 	        	content.style.display = 'block';
+                memoNode.style.height = '250px';
 	    	} else {
 	        	content.style.display = 'none';
+                memoNode.style.height = '4em';
 	    	}
 		}
 	}//class ends here

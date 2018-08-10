@@ -1,19 +1,25 @@
+//https://stackoverflow.com/questions/18665171/how-to-make-the-main-content-div-fill-height-of-screen-with-css
+
+.body {
+
+}
 
 .memo {
+    min-width: 150px;
     position: absolute;
     z-index: 9;
-    background-color: #f1f1f1;
+    background-color: rgb(255, 255, 107);
     border: 1px solid #d3d3d3;
     text-align: center;
 }
 
 .pin {
-    padding: 10px;
+    padding: 0px;
     cursor: move;
     z-index: 10;
     color: #fff;
-    width: 5px;
-    height:5px;
+    width: 10px;
+    height: 10px;
 	border-radius: 100%;
     background: rgb(210, 60, 60);
 
@@ -23,8 +29,8 @@
 .title {
     height: 2em;
     line-height: 2em;
-    width: 200px;
-    padding: 5px;
+    width: 100%;
+    padding: 0px;
     z-index: 10;
     background-color: rgb(255, 255, 107);
     color: rgb(0, 0, 0);
@@ -33,18 +39,31 @@
 }
 
 .content {
-    padding: 5px;
     z-index: 10;
+    width: 100%;
+    min-height: 100px;
+    height: auto !important;
+    padding: 0px;
     background-color: rgb(255, 255, 107);
     color: rgb(0, 0, 0);
     text-align: center;
+
+    
 }
 
-.bottom {
-    padding: 5px;
+.top {
+    position: absolute;
+    display: block;
+    padding 2em;
+    top: 0;
+    height: 2em;
+    width: 100%;
     z-index: 10;
     background-color: rgb(255, 255, 107);
     text-align: center;
+}
+.bottom {
+    
 }
 
 .panel {
