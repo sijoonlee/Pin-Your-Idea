@@ -11,10 +11,11 @@
     color: #fff;
     width: 10px;
     height: 10px;
-	border-radius: 100%;
-    background: rgb(210, 60, 60);
-
+    background: rgba(180, 50, 50, 0.3);
     position:absolute; right: 0; top: 0;
+}
+.pin:hover{
+    background: rgba(180, 50, 50,1);
 }
 
 .resizer {
