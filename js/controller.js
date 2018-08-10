@@ -2,11 +2,12 @@
 (function(window){
 	'use strict'
 	class Controller {
-	    constructor(model, view, store, drag) {
+	    constructor(model, view, store, drag, resizer) {
 	        this.model = model;
 	        this.view = view;
 	        this.store = store;
             this.drag = drag;
+            this.resizer = resizer;
 			var newNode = this.view.createMemoElement(null, this.store.pinBoard[0]);
 			this.bindBasic();
 			this.bindEvent(newNode);
@@ -49,6 +50,7 @@
 		    var addButtonNode = newNode.getElementsByClassName("add")[0];
 			var deleteButtonNode = newNode.getElementsByClassName("delete")[0];
             var pinBoxNode = newNode.getElementsByClassName("pin")[0];
+            var resizerNode = newNode.getElementsByClassName("resizer")[0];
 
             //titleNode.addEventListener("input", this.updateMemo.bind(this, "title", id, titleNode));
 		    //contentNode.addEventListener("input", this.updateMemo.bind(this, "content", id, contentNode));
@@ -78,8 +80,11 @@
                 this.view.toggleHide(newNode)
             });
             pinBoxNode.addEventListener("mouseover", ()=>{
-				this.drag.dragElement(newNode, this.model.findMemo(newNode.id));
+				this.drag.dragInit(newNode, pinBoxNode, this.model.findMemo(newNode.id));
 			}); //make it draggable
+            resizerNode.addEventListener("mouseover", ()=>{
+                this.resizer.resizerInit(newNode, resizerNode, this.model.findMemo(newNode.id));
+            });
 
 		}
 

@@ -24,7 +24,7 @@
 			newNode.setAttribute("class", "memo");
 			newNode.setAttribute("id", newMemo.id);
 			newNode.innerHTML =
-				`<div class = \"pin\"></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><div class=\"bottom\"><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"><input class=\"delete\" type=\"button\" value=\"delete\"></div>`; //ES6 string
+				`<div class = \"pin\"></div><div class = \"resizer\"></div><div contentEditable = true class = \"title\">${newMemo.title}</div><div contentEditable = true class = \"content\">${newMemo.content}</div><div class=\"bottom\"><input class=\"hide\" type=\"button\" value=\"hide\"><input class=\"add\" type=\"button\" value=\"add\"><input class=\"delete\" type=\"button\" value=\"delete\"></div>`; //ES6 string
 			//when there is no existing memo, it will be placed in "pinBoard"
 			//otherwise, it will be added after existing memo.
             newNode.style.top = newMemo.posY +"px";

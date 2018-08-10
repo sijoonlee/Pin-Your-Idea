@@ -41,6 +41,7 @@ detectChange.getDifferentItems();
 	window.model = new app.Model(store.pinBoard);
 	window.view = new app.View();
     window.drag = new app.Drag;
-	window.controller = new app.Controller(model, view, store, drag);
+    window.resizer = new app.Resizer;
+	window.controller = new app.Controller(model, view, store, drag, resizer);
     
 })(window);

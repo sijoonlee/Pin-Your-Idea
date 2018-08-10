@@ -6,10 +6,11 @@
         constructor(){
         }
 
-        dragElement(elmnt, memo){
-            this.elmnt = elmnt;
+        dragInit(newNode, pinBoxNode, memo){ // elmnt : pinBox div
+            this.newNode = newNode;
+            this.pinBoxNode = pinBoxNode;
             this.memo = memo || {posX:0, posY:0};
-            elmnt.getElementsByClassName("pin")[0].onmousedown = this.dragMouseDown.bind(this);
+            pinBoxNode.onmousedown = this.dragMouseDown.bind(this);
         }
 
         dragMouseDown(e) {
@@ -20,10 +21,10 @@
             this.pos4 = e.clientY;
             document.onmouseup = this.closeDragElement.bind(this);
         // call a function whenever the cursor moves:
-            document.onmousemove = this.elementDrag.bind(this);
+            document.onmousemove = this.dragElement.bind(this);
         }
 
-        elementDrag(e) {
+        dragElement(e) {
             
             e = e || window.event;
             e.preventDefault();
@@ -33,13 +34,13 @@
             this.pos3 = e.clientX;
             this.pos4 = e.clientY;
         // set the element's new position:
-            this.memo.posY = this.elmnt.offsetTop - this.pos2;
-            this.memo.posX = this.elmnt.offsetLeft - this.pos1;
-            this.elmnt.style.top = this.memo.posY + "px";
-            this.elmnt.style.left = this.memo.posX + "px";
+            this.memo.posY = this.newNode.offsetTop - this.pos2;
+            this.memo.posX = this.newNode.offsetLeft - this.pos1;
+            this.newNode.style.top = this.memo.posY + "px";
+            this.newNode.style.left = this.memo.posX + "px";
         }
 
-        closeDragElement(e, memo) {
+        closeDragElement(e) {
         /* stop moving when mouse button is released:*/
             document.onmouseup = null;
             document.onmousemove = null;
