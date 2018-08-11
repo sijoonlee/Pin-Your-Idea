@@ -25,6 +25,12 @@ https://jsfiddle.net/RainStudios/mw786v1w/
             this.memo.height = e.clientY - this.newNode.offsetTop;
             this.newNode.style.width = this.memo.width + 'px'
             this.newNode.style.height = this.memo.height + 'px';
+            
+            var h1 = this.newNode.getElementsByClassName("title")[0].style.height.replace("px","");
+            var h2 = this.newNode.getElementsByClassName("top")[0].style.height.replace("px","");
+            var h3 = this.newNode.getElementsByClassName("bottom")[0].style.height.replace("px","");
+            this.newNode.getElementsByClassName("content")[0].style.height = this.memo.height - h1 - h2 - h3 + 'px';
+        
         }
     
         stopResizeElement(e) {

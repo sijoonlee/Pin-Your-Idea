@@ -4,28 +4,84 @@
 
 }
 
-.pin {
-    padding: 0px;
-    cursor: move;
+.top {
+    
+    display: block;
+    width: 100%;
     z-index: 10;
-    color: #fff;
+    padding: 0;
+    text-align: center;
+}
+
+.hide {
+    height: 15px;
+    width: 15px;
+    float: left;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    text-align:center;
+    background : rgba(219, 145, 27, 0.5);
+}
+.hide:hover{
+    background : rgba(219, 145, 27, 1);
+}
+
+.add {
+    height: 15px;
+    width: 15px;
+    float: left;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    text-align:center;
+    background : rgba(219, 145, 27, 0.5);
+}
+.add:hover{
+    background : rgba(219, 145, 27, 1);
+}
+.delete {
+    height: 15px;
+    width: 15px;
+    float: left;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    text-align:center;
+    background : rgba(219, 145, 27, 0.5);
+}
+.delete:hover{
+    background : rgba(219, 145, 27, 1);
+}
+
+.pin {
     width: 10px;
     height: 10px;
-    background: rgba(180, 50, 50, 0.3);
     position:absolute; right: 0; top: 0;
+    cursor: move;
+    padding: 0px;
+    z-index: 10;
+    background: rgba(180, 50, 50, 0.3);
+    
 }
 .pin:hover{
     background: rgba(180, 50, 50,1);
 }
 
+.bottom {
+}
+
 .resizer {
     width: 10px;
     height: 10px;
-    background: red;
     position: absolute;
     right: 0;
     bottom: 0;
+    background: rgba(180, 50, 50, 0.3);
     cursor: se-resize;
+}
+.resizer:hover{
+    background: rgba(180, 50, 50,1);
 }
 
 
@@ -41,8 +97,8 @@
 
 .title {
     overflow-y:hidden;
-    height: 2em;
-    line-height: 2em;
+    height: 20px;
+    line-height: 20px;
     width: 100%;
     padding: 0px;
     z-index: 10;
@@ -56,8 +112,6 @@
     overflow-y:hidden;
     z-index: 10;
     width: 100%;
-    min-height: 100px;
-    height: auto !important;
     padding: 0px;
     background-color: rgb(255, 255, 107);
     color: rgb(0, 0, 0);
@@ -66,20 +120,8 @@
     
 }
 
-.top {
-    position: absolute;
-    display: block;
-    padding 2em;
-    top: 0;
-    height: 2em;
-    width: 100%;
-    z-index: 10;
-    background-color: rgb(255, 255, 107);
-    text-align: center;
-}
-.bottom {
-    
-}
+
+
 
 .panel {
     padding: 5px;
