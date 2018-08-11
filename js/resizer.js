@@ -6,6 +6,7 @@ https://jsfiddle.net/RainStudios/mw786v1w/
     
     class Resizer {
         constructor(){
+            this.minHeight = 100;
         }
     
         resizerInit(newNode, resizerNode, memo){
@@ -21,8 +22,13 @@ https://jsfiddle.net/RainStudios/mw786v1w/
         }
     
         resizeElement(e) {
+            
             this.memo.width = e.clientX - this.newNode.offsetLeft;
-            this.memo.height = e.clientY - this.newNode.offsetTop;
+            if ((e.clientY - this.newNode.offsetTop) < this.minHeight ){
+                this.memo.height = this.minHeight;
+            }
+            else this.memo.height = e.clientY - this.newNode.offsetTop;
+
             this.newNode.style.width = this.memo.width + 'px'
             this.newNode.style.height = this.memo.height + 'px';
             
