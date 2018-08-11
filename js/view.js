@@ -27,12 +27,13 @@
             newNode.style.top = newMemo.posY;
             newNode.style.left = newMemo.posX;
 			newNode.innerHTML =
-				`<div class=\"top\" style = \"height:20px\"><div class = \"pin\"></div><input class=\"hide\" type=\"button\" value=\"^\"><input class=\"add\" type=\"button\" value=\"+\"><input class=\"\delete\" type=\"button\" value=\"-\"></div><div contentEditable = true class = \"title\" style = \"height:20px\">${newMemo.title}</div><div contentEditable = true class = \"content\" >${newMemo.content}</div><div class = \"bottom\" style = \"height:30px\"><div class = \"resizer\"></div></div>`; //ES6 string
+				`<div class=\"top\" style = \"height:20px\"><div class = \"pin\"></div><input class=\"hide\" type=\"button\" value=\"^\"><input class=\"add\" type=\"button\" value=\"+\"><input class=\"\delete\" type=\"button\" value=\"-\"></div><div contentEditable = true class = \"title\" style = \"height:20px\">${newMemo.title}</div><div contentEditable = true class = \"content\" >${newMemo.content}</div><div class = \"bottom\" style = \"height:20px\"><div class = \"resizer\"></div></div>`; //ES6 string
 			//when there is no existing memo, it will be placed in "pinBoard"
 			//otherwise, it will be added after existing memo.
 
             if (newMemo.hide == 1){
                 newNode.getElementsByClassName("content")[0].style.display = "none";
+                newNode.getElementsByClassName("resizer")[0].style.display = "none";
             } else {
                 newNode.style.height = newMemo.height + "px";
             }
@@ -72,7 +73,7 @@
                 memo.hide = 0;
 	    	} else {
 	        	content.style.display = 'none';
-                memoNode.style.height = '4em';
+                memoNode.style.height = "60px";
                 resizer.style.display = "none";
                 memo.hide = 1;
 	    	}
